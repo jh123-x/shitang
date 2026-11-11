@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>湖工大今天吃什么 · 转盘版样品</title>
+<style>
+:root{
+  --bg:#f6f5f3; --card:#fff; --ink:#191a1d; --sub:#83868d; --line:#e9e7e3;
+  --brand:#e8452f; --brand2:#ff8a4c;
+  --good:#1f9d63; --mid:#e8a33d; --bad:#d9534f;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg);color:var(--ink);
+  font:15px/1.6 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  padding-bottom:28px;
+}
+.wrap{max-width:380px;margin:0 auto;min-height:100vh;display:flex;flex-direction:column}
+header{padding:16px 18px 6px}
+header h1{margin:0;font-size:19px;letter-spacing:.5px}
+header .sub{margin-top:4px;font-size:12.5px;color:var(--sub)}
+.demo-badge{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:20px;background:#ffe9e4;color:var(--brand);font-size:11px;vertical-align:2px}
+
+.hero{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:34px 18px 0}
+.wheel{
+  width:232px;height:232px;border-radius:50%;
+  background:
+    radial-gradient(circle at 50% 38%, #fff 0%, #fff 42%, #fff6f2 100%);
+  border:3px solid #fff;
+  box-shadow:0 14px 34px rgba(232,69,47,.26), 0 0 0 10px rgba(232,69,47,.06);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:18px;user-select:none;transition:transform .12s ease;
+  position:relative
+}
+.wheel:active{transform:scale(.97)}
+.wheel .big{font-size:34px;font-weight:800;letter-spacing:2px;
+  background:linear-gradient(135deg,var(--brand),var(--brand2));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.wheel .small{margin-top:6px;font-size:12.5px;color:var(--sub)}
+.wheel .rollname{font-size:25px;font-weight:800;line-height:1.25;color:var(--ink);word-break:break-all}
+.wheel .rollhall{margin-top:5px;font-size:12px;color:var(--sub)}
+.spinning .rollname{animation:flash .09s infinite alternate}
+@keyframes flash{from{opacity:.25;transform:scale(.97)}to{opacity:1;transform:scale(1)}}
+.tip{margin-top:16px;font-size:13px;color:var(--sub)}
+
+.result{padding:14px 18px 0;min-height:8px}
+.card{
+  background:var(--card);border-radius:16px;padding:15px 16px;
+  box-shadow:0 2px 10px rgba(25,26,29,.06);
+  animation:pop .28s ease
+}
+@keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.card .name{font-size:19px;font-weight:800;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.hall{font-size:11px;color:var(--sub);background:#f3f2ef;padding:1px 7px;border-radius:6px;font-weight:400}
+.card .hook{margin:9px 0 0;font-size:14.5px;color:#33363b;line-height:1.6}
+.card .meta{margin-top:10px;font-size:12px;color:var(--sub);display:flex;gap:14px;align-items:center}
+.stars{color:#e8a33d;letter-spacing:1px}
+.actions{display:flex;gap:10px;margin-top:14px}
+.actions button{
+  flex:1;border:0;border-radius:13px;padding:13px;font-size:15px;font-weight:700
+}
+.btn-main{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;box-shadow:0 6px 16px rgba(232,69,47,.28)}
+.btn-ghost{background:#fff;color:var(--brand);border:1.5px solid #ffd9d0 !important}
+
+.bottom{padding:22px 18px 0;text-align:center}
+.linkish{background:none;border:0;color:var(--sub);font-size:13px;text-decoration:underline;text-underline-offset:3px}
+.taste-toggle{margin-top:14px;font-size:13px;color:var(--sub);background:none;border:0}
+.taste-panel{display:none;padding:8px 18px 0}
+.taste-panel.on{display:block}
+.row{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;scrollbar-width:none}
+.row::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;border:1px solid var(--line);background:#fff;color:#4a4f57;padding:6px 12px;border-radius:999px;font-size:13px;white-space:nowrap}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+.list-wrap{display:none;padding:12px 16px 0}
+.list-wrap.on{display:block}
+.card-row{background:#fff;border-radius:13px;padding:12px 14px;margin-bottom:9px;display:flex;gap:11px}
+.score{flex:0 0 46px;text-align:center;border-radius:9px;padding:5px 0;color:#fff;align-self:flex-start;font-size:15px;font-weight:800}
+.s-good{background:var(--good)} .s-mid{background:var(--mid)} .s-bad{background:var(--bad)}
+.card-row h3{margin:0 0 3px;font-size:15.5px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.card-row p{margin:0;font-size:13px;color:#4a4f57}
+.notice{font-size:12px;color:var(--sub);text-align:center;padding:16px 18px 0;line-height:1.7}
+</style>
+<style>body{padding-left:16px !important;padding-right:16px !important}
+.editbtn{position:fixed;right:14px;bottom:14px;z-index:60;background:#fff;border:1px solid #e6e3de;color:#6b6f76;font-size:12px;padding:7px 11px;border-radius:999px;box-shadow:0 3px 12px rgba(0,0,0,.08);font-family:inherit}
+.modal{position:fixed;inset:0;background:rgba(20,20,22,.45);z-index:80;display:none;align-items:center;justify-content:center;padding:16px}
+.modal.on{display:flex}
+.modal .panel{background:#fff;border-radius:16px;width:100%;max-width:430px;padding:16px;max-height:86vh;display:flex;flex-direction:column;box-shadow:0 18px 50px rgba(0,0,0,.25)}
+.modal h3{margin:0 0 6px;font-size:16px}
+.modal .hint{font-size:12px;color:#83868d;line-height:1.7;margin-bottom:9px}
+.modal .hint b{color:#4a4f57}
+.modal textarea{flex:1;min-height:240px;width:100%;border:1px solid #e9e7e3;border-radius:10px;padding:10px;font:12.5px/1.75 ui-monospace,Menlo,Consolas,monospace;resize:vertical;outline:none;color:#191a1d;background:#fbfaf9}
+.modal .btns{display:flex;gap:8px;margin-top:10px}
+.modal .btns button{flex:1;border:0;border-radius:10px;padding:11px;font-size:14px;font-weight:700;font-family:inherit}
+.b1{background:linear-gradient(135deg,#e8452f,#ff8a4c);color:#fff}
+.b2{background:#f3f2ef;color:#4a4f57}
+.edclose{display:block;margin:10px auto 0;border:0;background:none;color:#9b9ea3;font-size:13px;font-family:inherit}
+.formbody{overflow:auto;flex:1;padding-right:2px}
+.fld{margin-bottom:11px}
+.fld>label{display:block;font-size:12.5px;color:#83868d;margin-bottom:5px}
+.fld input[type=text],.fld input[type=number],.fld select{width:100%;border:1px solid #e9e7e3;border-radius:10px;padding:10px 11px;font-size:15px;font-family:inherit;outline:none;background:#fff;color:#191a1d}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:#ffb4a3}
+.fld textarea{width:100%;border:1px solid #e9e7e3;border-radius:10px;padding:10px 11px;font:14px/1.6 inherit;outline:none;min-height:56px;resize:none;background:#fff;color:#191a1d}
+.tags2{display:flex;flex-wrap:wrap;gap:6px}
+.tg{border:1px solid #e9e7e3;background:#fff;color:#5b6068;border-radius:999px;padding:6px 12px;font-size:13px;font-family:inherit}
+.tg.on{background:#e8452f;border-color:#e8452f;color:#fff}
+.stars2{display:flex;gap:6px;align-items:center}
+.stars2 .s{font-size:27px;line-height:1;color:#e2dfda;background:none;border:0;padding:0;cursor:pointer}
+.stars2 .s.on{color:#f0a92c}
+.stars2 .val{font-size:13px;color:#83868d;margin-left:6px}
+.mylist{margin-top:8px;border-top:1px solid #f0eeea;padding-top:6px}
+.mylist .it{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:#4a4f57;padding:7px 0;border-bottom:1px dashed #f2f0ec}
+.mylist .it b{font-weight:600;color:#191a1d}
+.mylist .del{border:0;background:none;color:#c0695f;font-size:12px;font-family:inherit;padding:2px 0 2px 10px}</style></head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>湖工大今天吃什么<span class="demo-badge">样品·假数据</span></h1>
+    <div class="sub">每天三次的灵魂拷问，一次点掉</div>
+  </header>
+
+  <div class="hero" id="hero">
+    <div class="wheel" id="wheel">
+      <div class="big" id="wheelBig">转</div>
+      <div class="small" id="wheelSmall">点一下，今天就不用想了</div>
+    </div>
+    <div class="tip" id="tip">20 家档口随机，转到哪家吃哪家</div>
+  </div>
+
+  <div class="result" id="result"></div>
+
+  <div class="bottom">
+    <button class="taste-toggle" id="tasteToggle">口味偏好 ▾</button>
+    <button class="linkish" id="showList" style="margin-left:14px">看全部 20 家</button>
+  </div>
+
+  <div class="taste-panel" id="tastePanel">
+    <div class="row" id="tasteRow"></div>
+    <div class="row" id="priceRow"></div>
+  </div>
+
+  <div class="list-wrap" id="listWrap"><div id="list"></div></div>
+
+  <div class="notice">
+    这是样品：20 家档口、评分、评价全是编的。<br>
+    真要上线，这张表得你自己去食堂跑一趟。
+  </div>
+</div>
+
+<script>
+var DATA = [
+  {name:"兰州拉面",hall:"一食堂",price:12,tags:["面食","清淡"],score:4.6,
+   hook:"汤是牛骨熬的，牛肉薄得透光，但面够劲。"},
+  {name:"黄焖鸡米饭",hall:"二食堂",price:15,tags:["米饭","辣"],score:4.2,
+   hook:"油大味重，米饭杀手，吃完想睡两小时。"},
+  {name:"麻辣香锅",hall:"三食堂",price:18,tags:["辣"],score:4.4,
+   hook:"按重量算钱，第一次去容易拿多，人均 18 起跳。"},
+  {name:"螺蛳粉",hall:"二食堂",price:11,tags:["辣","面食"],score:4.0,
+   hook:"闻着臭吃着香，建议在食堂吃完再回宿舍。"},
+  {name:"沙县小吃",hall:"二食堂",price:10,tags:["清淡","米饭"],score:3.6,
+   hook:"便宜管饱，蒸饺一般，拌面还行。"},
+  {name:"煲仔饭",hall:"三食堂",price:14,tags:["米饭"],score:4.5,
+   hook:"锅巴是真的，要等八分钟，着急别点。"},
+  {name:"自选快餐",hall:"二食堂",price:13,tags:["米饭","清淡"],score:3.4,
+   hook:"菜样多但都温了，胜在快。"},
+  {name:"瓦罐汤",hall:"一食堂",price:9,tags:["汤","清淡"],score:4.1,
+   hook:"冬天救命的汤，配个饼刚好一顿。"},
+  {name:"重庆小面",hall:"三食堂",price:11,tags:["面食","辣"],score:4.3,
+   hook:"辣得实在，面偏硬，喜欢软一点要说。"},
+  {name:"东北饺子",hall:"一食堂",price:13,tags:["面食","清淡"],score:4.2,
+   hook:"现包现煮，要等，但馅比速冻强。"},
+  {name:"猪脚饭",hall:"二食堂",price:16,tags:["米饭"],score:4.7,
+   hook:"一份三块肉，肥而不腻，全食堂性价比最高。"},
+  {name:"卤肉饭",hall:"三食堂",price:14,tags:["米饭"],score:4.0,
+   hook:"卤汁偏甜，喜欢咸口的可能不适应。"},
+  {name:"冒菜",hall:"二食堂",price:16,tags:["辣","汤"],score:4.1,
+   hook:"一个人的火锅，按份拿菜，辣度可选。"},
+  {name:"酸辣粉",hall:"一食堂",price:9,tags:["辣","小吃"],score:3.8,
+   hook:"粉偏韧，酸味够，当加餐不错。"},
+  {name:"大鸡排",hall:"二食堂",price:12,tags:["小吃","辣"],score:4.4,
+   hook:"现炸，排队十分钟起，但确实比预炸的香。"},
+  {name:"石锅拌饭",hall:"三食堂",price:15,tags:["米饭","辣"],score:4.3,
+   hook:"锅巴香，拌的时候小心烫手。"},
+  {name:"煎饼果子",hall:"一食堂",price:8,tags:["小吃","面食"],score:4.0,
+   hook:"早上七点半到八点，唯一不用排队的时间。"},
+  {name:"水果捞",hall:"三食堂",price:14,tags:["甜"],score:3.9,
+   hook:"水果新鲜度看运气，酸奶给得倒是实在。"},
+  {name:"盖浇饭",hall:"清真食堂",price:12,tags:["米饭","清淡"],score:4.2,
+   hook:"土豆牛肉盖饭是隐藏款，菜单上看不到。"},
+  {name:"烤肉拌饭",hall:"三食堂",price:15,tags:["米饭","辣"],score:4.1,
+   hook:"酱给得多，拌开才好吃，别只吃上面。"}
+];
+
+var TASTES = ["不限","辣","清淡","面食","米饭","汤","小吃","甜"];
+var PRICES = ["不限","10 元内","10-15","15 以上"];
+var state = {taste:"不限", price:"不限"};
+
+function priceBand(p){ return p<=10 ? "10 元内" : (p<=15 ? "10-15" : "15 以上"); }
+function scoreClass(s){ return s>=4.4 ? "s-good" : (s>=3.9 ? "s-mid" : "s-bad"); }
+function starsOf(s){
+  var n = Math.round(s);
+  var s1 = "";
+  for(var i=0;i<5;i++){ s1 += (i<n ? "★" : "☆"); }
+  return s1;
+}
+
+function pool(){
+  return DATA.filter(function(it){
+    if(state.taste!=="不限" && it.tags.indexOf(state.taste)<0) return false;
+    if(state.price!=="不限" && priceBand(it.price)!==state.price) return false;
+    return true;
+  });
+}
+
+function renderChips(el, arr, cur, onPick){
+  el.innerHTML = "";
+  arr.forEach(function(v){
+    var b = document.createElement("button");
+    b.className = "chip" + (v===cur ? " on" : "");
+    b.textContent = v;
+    b.onclick = function(){ onPick(v); };
+    el.appendChild(b);
+  });
+}
+
+var timer = null;
+function spin(){
+  var p = pool();
+  var wheel = document.getElementById("wheel");
+  var big = document.getElementById("wheelBig");
+  var small = document.getElementById("wheelSmall");
+  if(!p.length){
+    document.getElementById("result").innerHTML = placeholder();
+    big.textContent = "没得选";
+    small.textContent = "放宽口味试试";
+    return;
+  }
+  if(timer) clearInterval(timer);
+  document.getElementById("result").innerHTML = "";
+  wheel.classList.add("spinning");
+  big.className = "rollname";
+  big.textContent = "—";
+  small.textContent = "正在转…";
+  var n = 0;
+  timer = setInterval(function(){
+    n++;
+    var t = p[Math.floor(Math.random()*p.length)];
+    big.textContent = t.name;
+    if(n > 16){
+      clearInterval(timer); timer = null;
+      wheel.classList.remove("spinning");
+      finish(p[Math.floor(Math.random()*p.length)]);
+    }
+  }, 80);
+}
+
+function finish(it){
+  var big = document.getElementById("wheelBig");
+  var small = document.getElementById("wheelSmall");
+  big.className = "rollname";
+  big.textContent = it.name;
+  small.textContent = it.hall + " · ¥" + it.price;
+
+  var r = document.getElementById("result");
+  r.innerHTML =
+    '<div class="card">'+
+      '<div class="name">'+it.name+'<span class="hall">'+it.hall+'</span></div>'+
+      '<p class="hook">'+it.hook+'</p>'+
+      '<div class="meta"><span class="stars">'+starsOf(it.score)+'</span>'+
+        '<span>'+it.score.toFixed(1)+' 分</span><span>人均 ¥'+it.price+'</span></div>'+
+      '<div class="actions">'+
+        '<button class="btn-ghost" id="again">不满意，再转</button>'+
+        '<button class="btn-main" id="goList">看看别的</button>'+
+      '</div>'+
+    '</div>';
+  document.getElementById("again").onclick = spin;
+  document.getElementById("goList").onclick = function(){ toggleList(true); };
+}
+
+function renderList(){
+  var box = document.getElementById("list");
+  var items = DATA.slice().sort(function(a,b){ return b.score-a.score; });
+  box.innerHTML = "";
+  items.forEach(function(it){
+    var d = document.createElement("div");
+    d.className = "card-row";
+    d.innerHTML =
+      '<div class="score '+scoreClass(it.score)+'">'+it.score.toFixed(1)+'</div>'+
+      '<div style="flex:1;min-width:0">'+
+        '<h3>'+it.name+'<span class="hall">'+it.hall+'</span></h3>'+
+        '<p>'+it.hook+'</p>'+
+      '</div>';
+    box.appendChild(d);
+  });
+}
+
+function toggleList(on){
+  var lw = document.getElementById("listWrap");
+  lw.classList.toggle("on", on);
+  if(on){ lw.scrollIntoView({behavior:"smooth", block:"start"}); renderList(); }
+}
+
+document.getElementById("wheel").onclick = spin;
+document.getElementById("showList").onclick = function(){
+  var lw = document.getElementById("listWrap");
+  var opened = lw.classList.contains("on");
+  toggleList(!opened);
+  this.textContent = opened ? "看全部 20 家" : "收起";
+};
+document.getElementById("tasteToggle").onclick = function(){
+  var p = document.getElementById("tastePanel");
+  p.classList.toggle("on");
+  this.textContent = p.classList.contains("on") ? "口味偏好 ▴" : "口味偏好 ▾";
+};
+
+renderChips(document.getElementById("tasteRow"), TASTES, state.taste, function(v){
+  state.taste = v;
+  renderChips(document.getElementById("tasteRow"), TASTES, v, function(){});
+  bindTaste();
+});
+renderChips(document.getElementById("priceRow"), PRICES, state.price, function(v){
+  state.price = v;
+  renderChips(document.getElementById("priceRow"), PRICES, v, function(){});
+  bindPrice();
+});
+function bindTaste(){
+  var chips = document.getElementById("tasteRow").children;
+  for(var i=0;i<chips.length;i++){
+    (function(idx){
+      chips[idx].onclick = function(){
+        state.taste = TASTES[idx];
+        renderChips(document.getElementById("tasteRow"), TASTES, state.taste, function(){});
+        bindTaste();
+      };
+    })(i);
+  }
+}
+function bindPrice(){
+  var chips = document.getElementById("priceRow").children;
+  for(var i=0;i<chips.length;i++){
+    (function(idx){
+      chips[idx].onclick = function(){
+        state.price = PRICES[idx];
+        renderChips(document.getElementById("priceRow"), PRICES, state.price, function(){});
+        bindPrice();
+      };
+    })(i);
+  }
+}
+function placeholder(){
+  return '<div class="card" style="border:1px dashed #ddd6cf;background:transparent;box-shadow:none;text-align:center;color:#a9abae;font-size:13px;padding:22px">转到什么，这里就出现</div>';
+}
+document.getElementById("result").innerHTML = placeholder();
+if(location.hash === "#demo"){ finish(DATA[10]); }
+
+bindTaste(); bindPrice(); renderList();
+</script>
+<script>
+(function(){
+  var KEY = "shitang_wheel_data_v2";
+  var DEFAULTS = JSON.parse(JSON.stringify(DATA));
+
+  function toLines(a){
+    return a.map(function(it){
+      return [it.name, it.hall, it.price, (it.tags||[]).join(","), it.score, it.hook||""].join(" | ");
+    }).join("\n");
+  }
+  function parseLines(t){
+    var out = [];
+    t.split(/\r?\n/).forEach(function(line){
+      line = line.trim();
+      if(!line) return;
+      var p = line.split("|").map(function(s){ return s.trim(); });
+      if(p.length < 2) return;
+      out.push({
+        name: p[0] || "未命名",
+        hall: p[1] || "",
+        price: parseFloat((p[2]||"0").replace(/[^\d.]/g,"")) || 0,
+        tags: (p[3]||"").split(/[,，、\/]/).map(function(s){return s.trim();}).filter(Boolean),
+        score: parseFloat(p[4]) || 0,
+        hook: p[5] || ""
+      });
+    });
+    return out;
+  }
+  function apply(a){
+    DATA.length = 0;
+    for(var i=0;i<a.length;i++){ DATA.push(a[i]); }
+  }
+  function redraw(){
+    var big = document.getElementById("wheelBig");
+    var small = document.getElementById("wheelSmall");
+    if(big){ big.className = "big"; big.textContent = "转"; }
+    if(small){ small.textContent = "点一下，今天就不用想了"; }
+    var r = document.getElementById("result");
+    if(r && typeof placeholder === "function"){ r.innerHTML = placeholder(); }
+    if(typeof renderList === "function"){ renderList(); }
+    var btn = document.getElementById("showList");
+    if(btn && btn.textContent.indexOf("收起") < 0){
+      btn.textContent = "看全部 " + DATA.length + " 家";
+    }
+  }
+
+  var saved = null;
+  try { saved = JSON.parse(localStorage.getItem(KEY) || "null"); } catch(e){}
+  if(saved && saved.length){ apply(saved); redraw(); }
+
+  var SAVE = function(){ try { localStorage.setItem(KEY, JSON.stringify(DATA)); } catch(e){} };
+
+  var btn = document.createElement("button");
+  btn.className = "editbtn";
+  btn.textContent = "＋ 加一家";
+  document.body.appendChild(btn);
+
+  var modal = document.createElement("div");
+  modal.className = "modal";
+  modal.innerHTML =
+    '<div class="panel">' +
+      '<h3>加一家档口</h3>' +
+      '<div class="formbody">' +
+        '<div class="fld"><label>档口叫什么</label><input type="text" id="fName" placeholder="例：猪脚饭"></div>' +
+        '<div class="fld"><label>在哪个食堂</label><select id="fHall"><option>一食堂</option><option>二食堂</option><option>三食堂</option><option>清真食堂</option><option>其他 / 校外</option></select></div>' +
+        '<div class="fld"><label>大概多少钱</label><input type="number" id="fPrice" min="0" step="1" placeholder="16"></div>' +
+        '<div class="fld"><label>口味（可多选，不选也行）</label><div class="tags2" id="fTags"></div></div>' +
+        '<div class="fld"><label>你给几分</label><div class="stars2" id="fStars"></div></div>' +
+        '<div class="fld"><label>一句话（可以不填）</label><textarea id="fHook" maxlength="40" placeholder="例：肉给得实在，但十二点排队久"></textarea></div>' +
+        '<button class="b1" id="fAdd" style="width:100%;border:0;border-radius:12px;padding:13px;font-size:15px;font-weight:700;font-family:inherit">加进转盘</button>' +
+        '<div class="mylist" id="myList"></div>' +
+      '</div>' +
+      '<div class="btns"><button class="b2" id="edReset">恢复默认</button><button class="b2" id="edClose">关闭</button></div>' +
+    '</div>';
+  document.body.appendChild(modal);
+
+  var TAGS = ["米饭","面食","辣","清淡","汤","小吃","甜"];
+  var pickedTags = {};
+  var pickedScore = 4;
+
+  var tagsBox = modal.querySelector("#fTags");
+  TAGS.forEach(function(t){
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "tg";
+    b.textContent = t;
+    b.onclick = function(){
+      pickedTags[t] = !pickedTags[t];
+      this.classList.toggle("on", !!pickedTags[t]);
+    };
+    tagsBox.appendChild(b);
+  });
+
+  var starsBox = modal.querySelector("#fStars");
+  var scoreLabel = document.createElement("span");
+  scoreLabel.className = "val";
+  for(var si = 1; si <= 5; si++){
+    (function(v){
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "s";
+      b.textContent = "★";
+      b.onclick = function(){ pickedScore = v; paintStars(); };
+      starsBox.appendChild(b);
+    })(si);
+  }
+  starsBox.appendChild(scoreLabel);
+  function paintStars(){
+    var ss = starsBox.querySelectorAll(".s");
+    for(var i = 0; i < ss.length; i++){ ss[i].classList.toggle("on", (i + 1) <= pickedScore); }
+    scoreLabel.textContent = pickedScore + " 分";
+  }
+  paintStars();
+
+  function renderMine(){
+    var box = modal.querySelector("#myList");
+    var head = '<div style="font-size:12.5px;color:#83868d;margin:12px 0 2px">现在转盘里有 ' + DATA.length + ' 家</div>';
+    var html = head;
+    DATA.slice().reverse().forEach(function(it, idx){
+      html += '<div class="it" data-i="' + (DATA.length - 1 - idx) + '">' +
+                '<span><b>' + it.name + '</b> · ' + it.hall + ' · ¥' + it.price + '</span>' +
+                '<button class="del">删掉</button>' +
+              '</div>';
+    });
+    box.innerHTML = html;
+    var rows = box.querySelectorAll(".it");
+    for(var i = 0; i < rows.length; i++){
+      (function(row){
+        row.querySelector(".del").onclick = function(){
+          var idx = parseInt(row.getAttribute("data-i"), 10);
+          DATA.splice(idx, 1);
+          SAVE(); redraw(); renderMine();
+        };
+      })(rows[i]);
+    }
+    if(!DATA.length){ box.innerHTML = head + '<div style="font-size:13px;color:#a9abae;padding:8px 0">空了，加一家试试</div>'; }
+  }
+
+  function open(){
+    renderMine();
+    modal.classList.add("on");
+    var n = modal.querySelector("#fName");
+    if(n){ setTimeout(function(){ n.focus(); }, 60); }
+  }
+  btn.onclick = open;
+  modal.querySelector("#edClose").onclick = function(){ modal.classList.remove("on"); };
+  modal.addEventListener("click", function(e){ if(e.target === modal) modal.classList.remove("on"); });
+
+  modal.querySelector("#fAdd").onclick = function(){
+    var name = modal.querySelector("#fName").value.trim();
+    if(!name){ alert("先填一个名字，哪怕只写“猪脚饭”"); return; }
+    var hall = modal.querySelector("#fHall").value;
+    var price = parseFloat(modal.querySelector("#fPrice").value) || 0;
+    var hook = modal.querySelector("#fHook").value.trim();
+    var tags = Object.keys(pickedTags).filter(function(k){ return pickedTags[k]; });
+    DATA.push({ name: name, hall: hall, price: price, tags: tags, score: pickedScore, hook: hook });
+    SAVE(); redraw(); renderMine();
+    modal.querySelector("#fName").value = "";
+    modal.querySelector("#fPrice").value = "";
+    modal.querySelector("#fHook").value = "";
+    pickedTags = {};
+    var tb = tagsBox.querySelectorAll(".tg");
+    for(var i = 0; i < tb.length; i++){ tb[i].classList.remove("on"); }
+    modal.querySelector("#fName").focus();
+    var box = modal.querySelector(".formbody");
+    if(box){ box.scrollTop = box.scrollHeight; }
+  };
+
+  modal.querySelector("#edReset").onclick = function(){
+    if(!confirm("恢复成默认的 20 家（你加的内容会丢）？")) return;
+    apply(JSON.parse(JSON.stringify(DEFAULTS)));
+    try { localStorage.removeItem(KEY); } catch(e){}
+    redraw(); renderMine();
+  };
+
+  if(location.hash === "#edit"){ open(); }
+})();
+</script>
+</body>
+</html>
